@@ -11,7 +11,7 @@ namespace StringCalculatorKata
         {
             if (string.IsNullOrEmpty(numbers)) return 0;
             
-            var delimiters = new List<char>() { '\n', ','};
+            var delimiters = new List<char> { '\n', ','};
 
             var newNumbers = numbers;
 
@@ -25,8 +25,21 @@ namespace StringCalculatorKata
                       
             }
 
-            var result = newNumbers.Split(delimiters.ToArray())
-                .Select(s => int.Parse(s)).Sum();
+            var numberList = newNumbers.Split(delimiters.ToArray())
+                .Select(s => int.Parse(s));
+
+            var negatives = numberList.Where(x => x < 0);
+
+            if (negatives.Any())
+            {
+                string negativeString = String.Join(',', negatives
+                    .Select(n => n.ToString()));
+
+                throw new Exception($"Negatives not allowed: {negativeString}");
+            }
+                
+
+            var result = numberList.Sum();
 
             return result;
         }
