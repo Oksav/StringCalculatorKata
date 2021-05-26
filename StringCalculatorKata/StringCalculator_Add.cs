@@ -38,7 +38,8 @@ namespace StringCalculatorKata
 
         [Theory]
         [InlineData("1\n2,3", 6)]
-        [InlineData("1\n2\n,3", 6)]
+        [InlineData("1\n2\n3", 6)]
+        [InlineData("1,2\n3", 6)]
         public void ReturnsSumGivenStringWithCommaOrNewLinesBetweenNumbers(string number, int expectedResult)
         {
             var result = calculator.Add(number);
