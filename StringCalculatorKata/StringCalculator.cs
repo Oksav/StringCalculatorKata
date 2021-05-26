@@ -6,5 +6,9 @@ namespace StringCalculatorKata
 {
     public class StringCalculator
     {
+        internal object Add(string number)
+        {
+            return 0;
+        }
     }
 }
