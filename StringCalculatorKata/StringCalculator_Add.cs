@@ -67,5 +67,16 @@ namespace StringCalculatorKata
 
             Assert.Equal(expectedMessage, ex.Message);
         }
+
+        [Theory]
+        [InlineData("1001,2", 2)]
+        [InlineData("3002,5", 5)]
+        [InlineData("1000,9",1009)]
+        public void ReturnsSumGivenStringWithoutNumberOver1000(string number, int expectedResult)
+        {
+            var result = calculator.Add(number);
+
+            Assert.Equal(expectedResult, result);
+        }
     }
 }
