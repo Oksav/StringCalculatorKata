@@ -10,22 +10,25 @@ namespace StringCalculatorKata
         internal object Add(string numbers)
         {
             if (string.IsNullOrEmpty(numbers)) return 0;
-            
-            var delimiters = new List<char> { '\n', ','};
 
-            var newNumbers = numbers;
+            var delimiters = new List<char> { '\n', ',', '/', '[', ']',';' };
+
+            var listNumbers = numbers;
 
             if (numbers.StartsWith("//"))
             {
-                var splitInput = numbers.Split('\n');
-                var newDelimiter = splitInput.First().Trim('/');
-                newNumbers = String.Join('\n', splitInput.Skip(1));
+                var splitInput = listNumbers.Split('\n');
+                var newDelimiter = splitInput.First().Trim(delimiters.ToArray());
+                var newNumbers = splitInput.Last().Replace(newDelimiter, ";");
+                listNumbers = newNumbers;
+                //delimiters.Add(Convert.ToChar(newDelimiter));
 
-                delimiters.Add(Convert.ToChar(newDelimiter));
-                      
             }
 
-            var numberList = newNumbers.Split(delimiters.ToArray())
+            
+
+
+            var numberList = listNumbers.Split(delimiters.ToArray())
                 .Select(s => int.Parse(s));
 
             var negatives = numberList.Where(x => x < 0);
@@ -37,7 +40,7 @@ namespace StringCalculatorKata
 
                 throw new Exception($"Negatives not allowed: {negativeString}");
             }
-            
+
             var result = numberList.Where(n => n <= 1000).Sum();
 
             return result;

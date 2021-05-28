@@ -78,5 +78,14 @@ namespace StringCalculatorKata
 
             Assert.Equal(expectedResult, result);
         }
+
+        [Theory]
+        [InlineData("//[|||]\n1|||2|||3", 6)]
+        public void ReturnsSumGivenStringWithMultipleDelimiters(string number, int expectedResult)
+        {
+            var result = calculator.Add(number);
+
+            Assert.Equal(expectedResult, result);
+        }
     }
 }
