@@ -11,21 +11,30 @@ namespace StringCalculatorKata
         {
             if (string.IsNullOrEmpty(numbers)) return 0;
 
-            var delimiters = new List<char> { '\n', ',', '/', '[', ']',';' };
+            var delimiters = new List<char> { '\n', ',', '/', '[', ']', ';' };
 
             var listNumbers = numbers;
 
             if (numbers.StartsWith("//"))
             {
-                var splitInput = listNumbers.Split('\n');
+               var splitInput = listNumbers.Split('\n');
                 var newDelimiter = splitInput.First().Trim(delimiters.ToArray());
-                var newNumbers = splitInput.Last().Replace(newDelimiter, ";");
-                listNumbers = newNumbers;
-                //delimiters.Add(Convert.ToChar(newDelimiter));
+                var newNumbers = splitInput.Last();
+
+                if(newDelimiter.Length != 0){
+                    while(newDelimiter.Length>=1){
+                        newNumbers = newNumbers.Replace(newDelimiter, ";");
+                        delimiters.Add(Convert.ToChar(newDelimiter.First()));
+                        newDelimiter = newDelimiter.Trim(delimiters.ToArray());
+                    }
+                    listNumbers = newNumbers;
+                }
+                else {
+                    listNumbers = splitInput.Last();
+                }
+
 
             }
-
-            
 
 
             var numberList = listNumbers.Split(delimiters.ToArray())
